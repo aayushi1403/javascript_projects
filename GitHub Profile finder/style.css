@@ -225,7 +225,7 @@ header p{
     gap:25px;
 }
 
-.repo-card{
+.repo-card1,.repo-card2,.repo-card3,.repo-card4{
     background:rgba(255,255,255,.05);
     backdrop-filter:blur(15px);
     border-radius:18px;
@@ -234,16 +234,16 @@ header p{
     transition:.35s;
 }
 
-.repo-card:hover{
+.repo-card1:hover,.repo-card2:hover,.repo-card3:hover,.repo-card4:hover{
     transform:translateY(-8px);
 }
 
-.repo-card h3{
+.repo-card1 h3,.repo-card2 h3,.repo-card3 h3,.repo-card4 h3{
     margin-bottom:15px;
     color:#58a6ff;
 }
 
-.repo-card p{
+.repo-card1 p,.repo-card2 p,.repo-card3 p,.repo-card4 p{
     color:#c9d1d9;
     line-height:1.6;
     margin-bottom:25px;
