@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Start Screen -->
+    <div class="start-screen">
+        <h1>Quiz Challenge</h1>
+        <p>Test your knowledge and beat the timer!</p>
+
+        <button id="startBtn">Start Quiz</button>
+    </div>
+
+    <!-- Quiz Card -->
+    <div class="quiz-card">
+
+        <div class="top">
+
+            <div class="question-count">
+                Question <span id="currentQuestion">1</span> /
+                <span id="totalQuestion">10</span>
+            </div>
+
+            <div class="timer">
+                ⏳ <span id="time">30</span>s
+            </div>
+
+        </div>
+
+        <div class="progress">
+            <div class="progress-bar"></div>
+        </div>
+
+        <h2 id="question">
+            Question will appear here...
+        </h2>
+
+        <div class="options">
+
+            <button class="option">Option A</button>
+            <button class="option">Option B</button>
+            <button class="option">Option C</button>
+            <button class="option">Option D</button>
+
+        </div>
+
+        <div class="bottom">
+
+            <button id="prevBtn">Previous</button>
+
+            <button id="nextBtn">Next</button>
+
+        </div>
+
+    </div>
+
+    <!-- Result Screen -->
+
+    <div class="result-card">
+
+        <h1>Quiz Finished 🎉</h1>
+
+        <h2>Your Score</h2>
+
+        <div class="score">
+            <span id="score">8</span> /
+            <span id="total">10</span>
+        </div>
+
+        <button id="restartBtn">
+            Restart Quiz
+        </button>
+
+    </div>
+
+</div>
+
+</body>
+</html>
