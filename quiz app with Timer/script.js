@@ -60,3 +60,15 @@ const questions = [
     answer: "function"
   }
 ];
+
+const startbtn=document.querySelector("#startBtn");
+const userprogress=document.querySelector(".progress-bar")
+const userquestion=document.querySelector("#question")
+const opA=document.querySelector(".optionA")
+const opB=document.querySelector(".optionB")
+const opC=document.querySelector(".optionC")
+const opD=document.querySelector(".optionD")
+const prev=document.querySelector("#prevBtn");
+const next=document.querySelector("#nextBtn");
+
+const restart=document.querySelector("#restartBtn");
