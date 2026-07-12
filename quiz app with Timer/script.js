@@ -72,3 +72,11 @@ const prev=document.querySelector("#prevBtn");
 const next=document.querySelector("#nextBtn");
 
 const restart=document.querySelector("#restartBtn");
+
+const questionnum=0;
+const score=0;
+const remainingTime=0;
+const selectedAnswer;
+
+
+
