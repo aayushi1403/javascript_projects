@@ -77,6 +77,8 @@ const questionnum=0;
 const score=0;
 const remainingTime=0;
 const selectedAnswer;
-
-
-function question
+const  timerInterval;
+function hideStartScreen(){
+   document.querySelector('start-screen').style.
+startbtn.addEventListener('click',()=><{
+})
