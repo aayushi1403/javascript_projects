@@ -73,12 +73,42 @@ const next=document.querySelector("#nextBtn");
 
 const restart=document.querySelector("#restartBtn");
 
-const questionnum=0;
+const questionIndex=0;
 const score=0;
-const remainingTime=0;
-const selectedAnswer;
-const  timerInterval;
+const remainingTime=30;
+let selectedAnswer=null;
+let  timerInterval;
+
 function hideStartScreen(){
-   document.querySelector('start-screen').style.
-startbtn.addEventListener('click',()=><{
+   document.querySelector(".start-screen").style.display="none";
+   document.querySelector(".quiz-card").style.display="flex";
+}
+function displayQuestion(){
+
+}
+function startTimer() {
+    clearInterval(timerInterval);
+    remainingTime = 30;
+    document.querySelector("#time").textContent = remainingTime;
+    timerInterval = setInterval(() => {
+        remainingTime--;
+        document.querySelector("#time").textContent = remainingTime;
+        if (remainingTime === 0) {
+            clearInterval(timerInterval);
+            //move to next question ---->
+        }
+        
+
+    }, 1000);
+}
+function loadquestion(questionIndex){
+ 
+}
+
+startbtn.addEventListener("click",()=>{
+  hideStartScreen();
+  score=0;
+  questionIndex=0;
+
+  startTimer();
 })
