@@ -73,18 +73,15 @@ const next=document.querySelector("#nextBtn");
 
 const restart=document.querySelector("#restartBtn");
 
-const questionIndex=0;
-const score=0;
-const remainingTime=30;
+let questionIndex=0;
+let score=0;
+let remainingTime=30;
 let selectedAnswer=null;
 let  timerInterval;
-
+let progressWidth=10;
 function hideStartScreen(){
    document.querySelector(".start-screen").style.display="none";
-   document.querySelector(".quiz-card").style.display="flex";
-}
-function displayQuestion(){
-
+   document.querySelector(".quiz-card").style.display="block";
 }
 function startTimer() {
     clearInterval(timerInterval);
@@ -96,19 +93,57 @@ function startTimer() {
         if (remainingTime === 0) {
             clearInterval(timerInterval);
             //move to next question ---->
+            loadquestion(questionIndex);
         }
         
 
     }, 1000);
 }
+
+
 function loadquestion(questionIndex){
- 
+ document.querySelector("#question").textContent=questions[questionIndex].question;
+ opA.textContent=questions[questionIndex].options[0]
+ opB.textContent=questions[questionIndex].options[1]
+ opC.textContent=questions[questionIndex].options[2]
+ opD.textContent=questions[questionIndex].options[3]
+ if(questionIndex<10){
+ questionIndex++;
+ }
+ document.querySelector("#currentQuestion").textContent=questionIndex+1;
+ const progress = ((questionIndex + 1) / questions.length) * 100;
+ document.querySelector(".progress-bar").style.width=`${progress}%`;
+ startTimer();
 }
+
 
 startbtn.addEventListener("click",()=>{
   hideStartScreen();
   score=0;
   questionIndex=0;
-
+  loadquestion(questionIndex);
   startTimer();
 })
+
+const optionsContainer = document.querySelector(".options");
+const options = document.querySelectorAll(".option");
+
+selectedAnswer = "";
+
+optionsContainer.addEventListener("click", (e) => {
+
+    // Ignore clicks outside buttons
+    if (!e.target.classList.contains("option")) return;
+
+    // Remove previous selection
+    options.forEach((btn) => {
+        btn.classList.remove("selected");
+    });
+
+    // Highlight clicked button
+    e.target.classList.add("selected");
+
+    // Store selected answer
+    selectedAnswer = e.target.textContent;
+
+});
