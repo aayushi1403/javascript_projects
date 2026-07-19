@@ -79,6 +79,10 @@ let remainingTime=30;
 let selectedAnswer=null;
 let  timerInterval;
 let progressWidth=10;
+
+let userAnswers = new Array(questions.length).fill(null);
+
+
 function hideStartScreen(){
    document.querySelector(".start-screen").style.display="none";
    document.querySelector(".quiz-card").style.display="block";
@@ -93,7 +97,7 @@ function startTimer() {
         if (remainingTime === 0) {
             clearInterval(timerInterval);
             //move to next question ---->
-            loadquestion(questionIndex);
+            nextStep();
         }
         
 
@@ -101,19 +105,27 @@ function startTimer() {
 }
 
 
-function loadquestion(questionIndex){
- document.querySelector("#question").textContent=questions[questionIndex].question;
- opA.textContent=questions[questionIndex].options[0]
- opB.textContent=questions[questionIndex].options[1]
- opC.textContent=questions[questionIndex].options[2]
- opD.textContent=questions[questionIndex].options[3]
- if(questionIndex<10){
- questionIndex++;
- }
- document.querySelector("#currentQuestion").textContent=questionIndex+1;
- const progress = ((questionIndex + 1) / questions.length) * 100;
- document.querySelector(".progress-bar").style.width=`${progress}%`;
- startTimer();
+function loadQuestion() {
+    userquestion.textContent = questions[questionIndex].question;
+    opA.textContent = questions[questionIndex].options[0];
+    opB.textContent = questions[questionIndex].options[1];
+    opC.textContent = questions[questionIndex].options[2];
+    opD.textContent = questions[questionIndex].options[3];
+    document.querySelector("#currentQuestion").textContent = questionIndex + 1;
+    const progress = ((questionIndex + 1) / questions.length) * 100;
+    userprogress.style.width = `${progress}%`;
+    options.forEach(btn => btn.classList.remove("selected"));
+    if(userAnswers[questionIndex] !== null){
+        options.forEach(btn=>{
+            if(btn.textContent===userAnswers[questionIndex]){
+                btn.classList.add("selected");
+            }
+        });
+      selectedAnswer=userAnswers[questionIndex];
+    }else{
+        selectedAnswer=null;
+    }
+    startTimer();
 }
 
 
@@ -121,8 +133,7 @@ startbtn.addEventListener("click",()=>{
   hideStartScreen();
   score=0;
   questionIndex=0;
-  loadquestion(questionIndex);
-  startTimer();
+  loadQuestion();
 })
 
 const optionsContainer = document.querySelector(".options");
@@ -145,5 +156,93 @@ optionsContainer.addEventListener("click", (e) => {
 
     // Store selected answer
     selectedAnswer = e.target.textContent;
+    userAnswers[questionIndex] = selectedAnswer;
 
 });
+
+
+function nextStep(){
+  if(selectedAnswer!==null&& selectedAnswer==questions[questionIndex].answer){
+     score++;
+  }
+  questionIndex++;
+  if (questionIndex < questions.length) {
+
+        loadQuestion();
+
+    }else {
+
+        // Stop timer
+        clearInterval(timerInterval);
+
+        // Hide quiz
+        document.querySelector(".quiz-card").style.display = "none";
+
+        // Show result screen
+        score=0;
+        //score calculate
+for(let i=0;i<questions.length;i++){
+
+    if(userAnswers[i]===questions[i].answer){
+        score++;
+    }
+
+}
+        document.querySelector(".result-card").style.display = "block";
+        if(score>=8 &&score<=10){
+          document.querySelector("#message").textContent="Excellent! "
+        }
+        else if(score>=5 &&score<=7){
+          document.querySelector("#message").textContent="Good Job! "
+        }
+        else{
+          document.querySelector("#message").textContent="keep practing! "
+        }
+
+
+        // Display score
+        document.querySelector("#score").textContent = score;
+    }
+}
+
+next.addEventListener("click",()=>{
+  nextStep();
+})
+
+function prevStep() {
+
+    if (questionIndex > 0) {
+        questionIndex--;
+        loadQuestion();
+        // Remove previous highlight
+        document.querySelectorAll(".option").forEach((btn) => {
+            btn.classList.remove("selected");
+        });
+        // Restore previously selected answer
+        if (userAnswers[questionIndex] !== null) {
+            document.querySelectorAll(".option").forEach((btn) => {
+                if (btn.textContent === userAnswers[questionIndex]) {
+                    btn.classList.add("selected");
+                }
+            });
+            selectedAnswer = userAnswers[questionIndex];
+        } else {
+            selectedAnswer = "";
+        }
+    }
+}
+document.querySelector("#prevBtn").addEventListener("click",()=>{
+  prevStep();
+})
+
+function restartStep(){
+    clearInterval(timerInterval);
+    score=0;
+    questionIndex=0;
+    selectedAnswer=null;
+    userAnswers.fill(null);
+    document.querySelector(".result-card").style.display="none";
+    document.querySelector(".quiz-card").style.display="block";
+    loadQuestion();
+}
+restart.addEventListener("click", restartStep);
